@@ -2,131 +2,168 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Valentine’s Natalie 💖</title>
-
 <style>
-  body {
-    background: linear-gradient(to top, #ffd6e0, #ffb3c6, #ff8fab);
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to top, #ffd6e0, #ffb3c6, #ff8fab);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  /* Scene box */
-  .card {
-    position: relative;
-    width: 360px;
-    height: 420px;
-    background: rgba(255,255,255,0.25);
-    border-radius: 25px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    overflow: hidden;
-  }
+/* Scene box */
+.card {
+  position: relative;
+  width: 360px;
+  height: 420px;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.25);
+}
 
-  /* Sky */
-  .sky {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 45%;
-    text-align: center;
-    font-size: 22px;
-    padding-top: 10px;
-  }
+/* Sun */
+.sun {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 48px;
+  animation: sunGlow 15s linear infinite;
+}
 
-  .cloud {
-    position: absolute;
-    font-size: 34px;
-    animation: cloudMove 15s linear forwards;
-  }
+@keyframes sunGlow {
+  0%, 50%, 100% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(5px) scale(1.05); }
+  75% { transform: translateY(-5px) scale(1.05); }
+}
 
-  .cloud.one { left: -20%; top: 20px; }
-  .cloud.two { left: -30%; top: 55px; animation-delay: 3s; }
+/* Clouds */
+.cloud {
+  position: absolute;
+  font-size: 34px;
+  animation: cloudMove 15s linear infinite;
+}
 
-  @keyframes cloudMove {
-    to { transform: translateX(140%); }
-  }
+.cloud.one { top: 10%; left: -30%; animation-delay: 0s; }
+.cloud.two { top: 25%; left: -40%; animation-delay: 5s; }
+.cloud.three { top: 40%; left: -35%; animation-delay: 10s; }
+.cloud.four { top: 55%; left: -50%; animation-delay: 7s; }
 
-  /* Cherry blossoms falling */
-  .petal {
-    position: absolute;
-    top: -20px;
-    font-size: 18px;
-    opacity: 0.7;
-    animation: fall 15s linear forwards;
-  }
+@keyframes cloudMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(120vw); }
+}
 
-  .petal:nth-child(1) { left: 20%; animation-delay: 2s; }
-  .petal:nth-child(2) { left: 50%; animation-delay: 5s; }
-  .petal:nth-child(3) { left: 75%; animation-delay: 8s; }
+/* Cherry blossoms falling */
+.petal {
+  position: absolute;
+  top: -20px;
+  font-size: 18px;
+  opacity: 0.8;
+  animation: fall 15s linear infinite;
+}
 
-  @keyframes fall {
-    to { transform: translateY(460px) rotate(360deg); }
-  }
+.petal:nth-child(1) { left: 10%; animation-delay: 0s; }
+.petal:nth-child(2) { left: 30%; animation-delay: 3s; }
+.petal:nth-child(3) { left: 50%; animation-delay: 6s; }
+.petal:nth-child(4) { left: 70%; animation-delay: 9s; }
+.petal:nth-child(5) { left: 85%; animation-delay: 12s; }
 
-  /* Couple */
-  .emoji {
-    font-size: 72px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+@keyframes fall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { transform: translateY(460px) rotate(360deg); opacity: 0; }
+}
 
-  /* Sparkles & hearts floating */
-  .sparkle {
-    position: absolute;
-    font-size: 24px;
-    animation: sparkleAnim 12s linear infinite;
-  }
+/* Kissing emojis */
+.emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 72px;
+  animation: kissPulse 15s infinite;
+}
 
-  @keyframes sparkleAnim {
-    0% { transform: translateY(0); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-400px); opacity: 0; }
-  }
+@keyframes kissPulse {
+  0%,100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.08); }
+}
 
-  .heart {
-    position: absolute;
-    font-size: 24px;
-    animation: heartAnim 12s linear infinite;
-  }
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 22px;
+  animation: heartFloat 15s linear infinite;
+}
 
-  @keyframes heartAnim {
-    0% { transform: translateY(0); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-400px); opacity: 0; }
-  }
+.heart.one { left: 25%; animation-delay: 0s; }
+.heart.two { left: 50%; animation-delay: 5s; }
+.heart.three { left: 75%; animation-delay: 10s; }
+
+@keyframes heartFloat {
+  0% { transform: translateY(100%); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translateY(-120%); opacity: 1; }
+  90% { opacity: 0; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  font-size: 20px;
+  animation: sparkleFloat 15s linear infinite;
+}
+
+.sparkle.one { left: 35%; animation-delay: 2s; }
+.sparkle.two { left: 65%; animation-delay: 7s; }
+
+@keyframes sparkleFloat {
+  0% { transform: translateY(100%); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translateY(-100%); opacity: 1; }
+  90% { opacity: 0; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
 </style>
 </head>
 
 <body>
 <div class="card">
 
-  <!-- Sky -->
-  <div class="sky">
-    🌸 🌸 🌸
-    <div class="cloud one">☁️</div>
-    <div class="cloud two">☁️</div>
-  </div>
+  <!-- Sun -->
+  <div class="sun">☀️</div>
+
+  <!-- Clouds -->
+  <div class="cloud one">☁️</div>
+  <div class="cloud two">☁️☁️</div>
+  <div class="cloud three">☁️</div>
+  <div class="cloud four">☁️☁️</div>
 
   <!-- Falling petals -->
   <div class="petal">🌸</div>
   <div class="petal">🌸</div>
   <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
 
-  <!-- Couple emojis -->
+  <!-- Kissing emojis -->
   <div class="emoji">🥰💋😍</div>
 
-  <!-- Floating sparkles and hearts -->
-  <div class="sparkle" style="left:30%">✨</div>
-  <div class="sparkle" style="left:70%">✨</div>
-  <div class="heart" style="left:40%">💖</div>
-  <div class="heart" style="left:60%">💕</div>
+  <!-- Floating hearts -->
+  <div class="heart one">💖</div>
+  <div class="heart two">💕</div>
+  <div class="heart three">💖</div>
+
+  <!-- Sparkles -->
+  <div class="sparkle one">✨</div>
+  <div class="sparkle two">✨</div>
 
 </div>
 
