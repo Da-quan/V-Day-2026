@@ -2,44 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Valentine’s Day ❤️</title>
+  <title>Will You Be My Valentine?</title>
   <style>
     body {
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
       height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-family: 'Arial', sans-serif;
+      align-items: center;
+      font-family: Arial, sans-serif;
       text-align: center;
+      margin: 0;
     }
+
     .card {
       background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      max-width: 400px;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     }
+
     h1 {
       color: #e63946;
+      font-size: 28px;
+      margin-bottom: 30px;
     }
-    p {
-      font-size: 18px;
+
+    .yes-btn {
+      font-size: 26px;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      background: #e63946;
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+
+    .yes-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 20px rgba(230,57,70,0.4);
+    }
+
     .heart {
-      font-size: 40px;
+      font-size: 50px;
+      margin-bottom: 15px;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
   <div class="card">
     <div class="heart">❤️</div>
-    <h1>Happy Valentine’s Day</h1>
-    <p>
-      You make my world brighter every day.<br>
-      Thank you for being you 💕
-    </p>
-    <p>– From Me</p>
+    <h1>Will you be my Valentine?</h1>
+    <button class="yes-btn" onclick="location.href='yes.html'">
+      YES 💖
+    </button>
   </div>
 </body>
 </html>
