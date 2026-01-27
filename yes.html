@@ -2,178 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Valentine’s Natalie 💖</title>
+
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(to top, #ffd6e0, #ffb3c6, #ff8fab);
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Scene box */
-.card {
-  position: relative;
-  width: 360px;
-  height: 420px;
-  border-radius: 25px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-  background: rgba(255,255,255,0.25);
-}
-
-/* Sky with clouds */
-.sky {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 45%;
-  text-align: center;
-  font-size: 22px;
-  padding-top: 10px;
-}
-
-.cloud {
-  position: absolute;
-  font-size: 34px;
-  animation: cloudMove 15s linear infinite;
-}
-.cloud.one { left: -30%; top: 20px; }
-.cloud.two { left: -40%; top: 55px; animation-delay: 3s; }
-.cloud.three { left: -50%; top: 90px; animation-delay: 6s; }
-
-@keyframes cloudMove {
-  from { transform: translateX(0); }
-  to { transform: translateX(140%); }
-}
-
-/* Falling petals */
-.petal {
-  position: absolute;
-  top: -20px;
-  font-size: 18px;
-  opacity: 0.7;
-  animation: fall 15s linear infinite;
-}
-.petal:nth-child(1) { left: 15%; animation-delay: 1s; }
-.petal:nth-child(2) { left: 40%; animation-delay: 3s; }
-.petal:nth-child(3) { left: 60%; animation-delay: 5s; }
-.petal:nth-child(4) { left: 80%; animation-delay: 7s; }
-
-@keyframes fall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 0.8; }
-  50% { opacity: 1; }
-  100% { transform: translateY(460px) rotate(360deg); opacity: 0; }
-}
-
-/* Ground */
-.ground {
-  position: absolute;
-  bottom: 60px;
-  width: 100%;
-  text-align: center;
-  font-size: 26px;
-}
-
-/* Couple emojis */
-.emoji {
-  font-size: 72px;
-  position: absolute;
-  top: 58%;
-  transform: translateY(-50%);
-}
-.left { left: 20px; animation: leftMove 15s forwards; }
-.right { right: 20px; animation: rightMove 15s forwards; }
-
-@keyframes leftMove {
-  0% { left: 20px; }
-  25% { left: 120px; }
-  100% { left: 120px; }
-}
-@keyframes rightMove {
-  0% { right: 20px; }
-  25% { right: 120px; }
-  100% { right: 120px; }
-}
-
-/* Kiss and sparkle */
-.kiss {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.5);
-  font-size: 64px;
-  opacity: 0;
-  animation: kiss 15s forwards;
-}
-.kiss::after {
-  content: "✨ 💖 ✨";
-  display: block;
-  font-size: 20px;
-  opacity: 0;
-  animation: sparkle 15s forwards;
-}
-@keyframes kiss {
-  0%, 25% { opacity: 0; }
-  35%, 55% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.15);
+  body {
+    background: linear-gradient(to top, #ffd6e0, #ffb3c6, #ff8fab);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
   }
-  100% { opacity: 1; }
-}
-@keyframes sparkle {
-  0%, 35% { opacity: 0; }
-  45%, 60% { opacity: 1; }
-  100% { opacity: 0; }
-}
 
-/* Floating hearts */
-.heart {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  font-size: 22px;
-  opacity: 0;
-  animation: floatHeart 15s infinite;
-}
-.heart.one { margin-left: -25px; }
-.heart.two { margin-left: 25px; animation-delay: 0.3s; }
-.heart.three { animation-delay: 0.6s; }
+  /* Scene box */
+  .card {
+    position: relative;
+    width: 360px;
+    height: 420px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
 
-@keyframes floatHeart {
-  0%, 45% { opacity: 0; transform: translate(-50%,0); }
-  55% { opacity: 1; transform: translate(-50%, -25px); }
-  75% { opacity: 0; transform: translate(-50%, -60px); }
-  100% { opacity: 0; transform: translate(-50%,0); }
-}
+  /* Sky */
+  .sky {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 45%;
+    text-align: center;
+    font-size: 22px;
+    padding-top: 10px;
+  }
 
-/* Note typing */
-.note {
-  position: absolute;
-  bottom: 15px;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  color: #e63946;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #e63946;
-  animation: typing 15s steps(65) forwards;
-}
-@keyframes typing {
-  0%, 65% { width: 0; opacity: 0; }
-  70% { opacity: 1; }
-  100% { width: 100%; }
-}
+  .cloud {
+    position: absolute;
+    font-size: 34px;
+    animation: cloudMove 15s linear forwards;
+  }
+
+  .cloud.one { left: -20%; top: 20px; }
+  .cloud.two { left: -30%; top: 55px; animation-delay: 3s; }
+
+  @keyframes cloudMove {
+    to { transform: translateX(140%); }
+  }
+
+  /* Cherry blossoms falling */
+  .petal {
+    position: absolute;
+    top: -20px;
+    font-size: 18px;
+    opacity: 0.7;
+    animation: fall 15s linear forwards;
+  }
+
+  .petal:nth-child(1) { left: 20%; animation-delay: 2s; }
+  .petal:nth-child(2) { left: 50%; animation-delay: 5s; }
+  .petal:nth-child(3) { left: 75%; animation-delay: 8s; }
+
+  @keyframes fall {
+    to { transform: translateY(460px) rotate(360deg); }
+  }
+
+  /* Ground */
+  .ground {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    text-align: center;
+    font-size: 26px;
+  }
+
+  /* Couple */
+  .emoji {
+    font-size: 72px;
+    position: absolute;
+    top: 58%;
+    transform: translateY(-50%);
+  }
+
+  .left {
+    left: 20px;
+    animation: leftMove 15s forwards;
+  }
+
+  .right {
+    right: 20px;
+    animation: rightMove 15s forwards;
+  }
+
+  @keyframes leftMove {
+    0% { left: 20px; }
+    25% { left: 120px; }
+    100% { left: 120px; }
+  }
+
+  @keyframes rightMove {
+    0% { right: 20px; }
+    25% { right: 120px; }
+    100% { right: 120px; }
+  }
+
+  /* Kiss */
+  .kiss {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    font-size: 64px;
+    opacity: 0;
+    animation: kiss 15s forwards;
+  }
+
+  .kiss::after {
+    content: "✨ 💖 ✨";
+    display: block;
+    font-size: 20px;
+    opacity: 0;
+    animation: sparkle 15s forwards;
+  }
+
+  @keyframes kiss {
+    0%, 25% { opacity: 0; }
+    35%, 55% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+    100% { opacity: 1; }
+  }
+
+  @keyframes sparkle {
+    0%, 35% { opacity: 0; }
+    45%, 60% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Hearts */
+  .heart {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    font-size: 22px;
+    opacity: 0;
+    animation: floatHeart 15s forwards;
+  }
+
+  .heart.one { margin-left: -25px; }
+  .heart.two { margin-left: 25px; animation-delay: .3s; }
+  .heart.three { animation-delay: .6s; }
+
+  @keyframes floatHeart {
+    0%, 45% { opacity: 0; }
+    55% { opacity: 1; transform: translate(-50%, -25px); }
+    75% { opacity: 0; transform: translate(-50%, -60px); }
+    100% { opacity: 0; }
+  }
+
+  /* Note */
+  .note {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #e63946;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #e63946;
+    animation: typing 15s steps(65) forwards;
+  }
+
+  @keyframes typing {
+    0%, 65% { width: 0; opacity: 0; }
+    70% { opacity: 1; }
+    100% { width: 100%; }
+  }
 </style>
 </head>
 
 <body>
+
 <div class="card">
 
   <!-- Sky -->
@@ -181,21 +193,18 @@ body {
     🌸 🌸 🌸
     <div class="cloud one">☁️</div>
     <div class="cloud two">☁️</div>
-    <div class="cloud three">☁️</div>
   </div>
 
   <!-- Falling petals -->
   <div class="petal">🌸</div>
   <div class="petal">🌸</div>
   <div class="petal">🌸</div>
-  <div class="petal">🌸</div>
 
-  <!-- Couple -->
+  <!-- Scene -->
   <div class="emoji left">🥰</div>
   <div class="emoji right">😍</div>
   <div class="kiss">💋</div>
 
-  <!-- Floating hearts -->
   <div class="heart one">💖</div>
   <div class="heart two">💕</div>
   <div class="heart three">💖</div>
@@ -205,7 +214,7 @@ body {
     🌸 🌸 🌸 🌷 🌸 🌸 🌸
   </div>
 
-  <!-- Love note -->
+  <!-- Note -->
   <div class="note">
     Natalie, I choose you today and always 💞 — Love, Quan
   </div>

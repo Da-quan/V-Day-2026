@@ -238,20 +238,24 @@ function confetti() {
     const rotate = Math.random() * 720;
 
     c.style.left = Math.random() * 100 + "vw";
-    c.style.top = "40%";
+    c.style.top = "-5vh"; // start slightly above top
 
-    c.animate([
-      { transform: "translateY(0) rotate(0deg)", opacity: 1 },
-      { transform: `translateY(100vh) rotate(${rotate}deg)`, opacity: 0 }
-    ], {
-      duration: duration * 1000,
-      easing: "ease-out"
-    });
+    // Slight stagger for falling
+    setTimeout(() => {
+      c.animate([
+        { transform: "translateY(0) rotate(0deg)", opacity: 1 },
+        { transform: `translateY(100vh) rotate(${rotate}deg)`, opacity: 0 }
+      ], {
+        duration: duration * 1000,
+        easing: "ease-out"
+      });
+    }, Math.random() * 300); // random delay for each confetti
 
     document.body.appendChild(c);
-    setTimeout(() => c.remove(), duration * 1000);
+    setTimeout(() => c.remove(), (duration + 0.3) * 1000);
   }
 }
+
 
 // YES button handler
 let alreadyClicked = false;
