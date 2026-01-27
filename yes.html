@@ -2,228 +2,181 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Valentine’s Natalie 💖</title>
 
 <style>
-  body {
-    background: linear-gradient(to top, #ffd6e0, #ffb3c6, #ff8fab);
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
+body {
+  margin: 0;
+  background: linear-gradient(#aee7ff, #ffe6f0); /* same as index.html */
+  overflow: hidden;
+  font-family: "Helvetica", sans-serif;
+  height: 100vh;
+}
 
-  /* Scene box */
-  .card {
-    position: relative;
-    width: 360px;
-    height: 420px;
-    background: rgba(255,255,255,0.25);
-    border-radius: 25px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    overflow: hidden;
-  }
+/* Sun */
+.sun {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 48px;
+}
 
-  /* Sky */
-  .sky {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 45%;
-    text-align: center;
-    font-size: 22px;
-    padding-top: 10px;
-  }
+/* Clouds */
+.cloud {
+  position: absolute;
+  font-size: 40px;
+  animation: floatCloud 35s linear infinite;
+}
+.cloud.one { top:10%; left:-20%; }
+.cloud.two { top:25%; left:-40%; animation-delay:5s; }
+.cloud.three { top:40%; left:-30%; animation-delay:10s; }
+.cloud.four { top:55%; left:-50%; animation-delay:15s; }
 
-  .cloud {
-    position: absolute;
-    font-size: 34px;
-    animation: cloudMove 15s linear forwards;
-  }
+@keyframes floatCloud {
+  from { transform: translateX(0); }
+  to { transform: translateX(120vw); }
+}
 
-  .cloud.one { left: -20%; top: 20px; }
-  .cloud.two { left: -30%; top: 55px; animation-delay: 3s; }
+/* Scene box / card */
+.scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.9);
+  border-radius: 25px;
+  padding: 25px;
+  text-align: center;
+  width: 85%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
 
-  @keyframes cloudMove {
-    to { transform: translateX(140%); }
-  }
+/* Kissing emojis */
+.kiss {
+  font-size: 72px;
+  animation: kissGlow 2s ease-in-out infinite;
+}
 
-  /* Cherry blossoms falling */
-  .petal {
-    position: absolute;
-    top: -20px;
-    font-size: 18px;
-    opacity: 0.7;
-    animation: fall 15s linear forwards;
-  }
+@keyframes kissGlow {
+  0%,100% { text-shadow: 0 0 10px pink; }
+  50% { text-shadow: 0 0 25px hotpink; }
+}
 
-  .petal:nth-child(1) { left: 20%; animation-delay: 2s; }
-  .petal:nth-child(2) { left: 50%; animation-delay: 5s; }
-  .petal:nth-child(3) { left: 75%; animation-delay: 8s; }
+/* Love note */
+.note {
+  margin-top: 15px;
+  font-size: 16px;
+  min-height: 50px;
+  color: #e63946;
+}
 
-  @keyframes fall {
-    to { transform: translateY(460px) rotate(360deg); }
-  }
+/* Background hearts */
+.heart {
+  position: absolute;
+  font-size: 22px;
+  animation: floatHeart 8s linear infinite;
+}
 
-  /* Ground */
-  .ground {
-    position: absolute;
-    bottom: 60px;
-    width: 100%;
-    text-align: center;
-    font-size: 26px;
-  }
+@keyframes floatHeart {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
 
-  /* Couple */
-  .emoji {
-    font-size: 72px;
-    position: absolute;
-    top: 58%;
-    transform: translateY(-50%);
-  }
+/* Blossoms */
+.blossom {
+  position: absolute;
+  font-size: 22px;
+  animation: fallBlossom 12s linear infinite;
+}
 
-  .left {
-    left: 20px;
-    animation: leftMove 15s forwards;
-  }
+@keyframes fallBlossom {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
 
-  .right {
-    right: 20px;
-    animation: rightMove 15s forwards;
-  }
-
-  @keyframes leftMove {
-    0% { left: 20px; }
-    25% { left: 120px; }
-    100% { left: 120px; }
-  }
-
-  @keyframes rightMove {
-    0% { right: 20px; }
-    25% { right: 120px; }
-    100% { right: 120px; }
-  }
-
-  /* Kiss */
-  .kiss {
-    position: absolute;
-    top: 58%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.5);
-    font-size: 64px;
-    opacity: 0;
-    animation: kiss 15s forwards;
-  }
-
-  .kiss::after {
-    content: "✨ 💖 ✨";
-    display: block;
-    font-size: 20px;
-    opacity: 0;
-    animation: sparkle 15s forwards;
-  }
-
-  @keyframes kiss {
-    0%, 25% { opacity: 0; }
-    35%, 55% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.15);
-    }
-    100% { opacity: 1; }
-  }
-
-  @keyframes sparkle {
-    0%, 35% { opacity: 0; }
-    45%, 60% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-
-  /* Hearts */
-  .heart {
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    font-size: 22px;
-    opacity: 0;
-    animation: floatHeart 15s forwards;
-  }
-
-  .heart.one { margin-left: -25px; }
-  .heart.two { margin-left: 25px; animation-delay: .3s; }
-  .heart.three { animation-delay: .6s; }
-
-  @keyframes floatHeart {
-    0%, 45% { opacity: 0; }
-    55% { opacity: 1; transform: translate(-50%, -25px); }
-    75% { opacity: 0; transform: translate(-50%, -60px); }
-    100% { opacity: 0; }
-  }
-
-  /* Note */
-  .note {
-    position: absolute;
-    bottom: 15px;
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    color: #e63946;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 2px solid #e63946;
-    animation: typing 15s steps(65) forwards;
-  }
-
-  @keyframes typing {
-    0%, 65% { width: 0; opacity: 0; }
-    70% { opacity: 1; }
-    100% { width: 100%; }
-  }
+/* Confetti */
+.confetti {
+  position: absolute;
+  font-size: 26px;
+  opacity: 1;
+}
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="sun">☀️</div>
 
-  <!-- Sky -->
-  <div class="sky">
-    🌸 🌸 🌸
-    <div class="cloud one">☁️</div>
-    <div class="cloud two">☁️</div>
-  </div>
+<!-- Clouds -->
+<div class="cloud one">☁️☁️</div>
+<div class="cloud two">☁️☁️☁️</div>
+<div class="cloud three">☁️☁️</div>
+<div class="cloud four">☁️☁️☁️</div>
 
-  <!-- Falling petals -->
-  <div class="petal">🌸</div>
-  <div class="petal">🌸</div>
-  <div class="petal">🌸</div>
-
-  <!-- Scene -->
-  <div class="emoji left">🥰</div>
-  <div class="emoji right">😍</div>
-  <div class="kiss">💋</div>
-
-  <div class="heart one">💖</div>
-  <div class="heart two">💕</div>
-  <div class="heart three">💖</div>
-
-  <!-- Ground -->
-  <div class="ground">
-    🌸 🌸 🌸 🌷 🌸 🌸 🌸
-  </div>
-
-  <!-- Note -->
-  <div class="note">
-    Natalie, I choose you today and always 💞 — Love, Quan
-  </div>
-
+<!-- Scene / Card -->
+<div class="scene">
+  <div class="kiss" id="kiss">🥰💋😍</div>
+  <div class="note" id="note">Natalie, I choose you today and always 💞 — Love, Quan</div>
 </div>
+
+<!-- Floating hearts and blossoms -->
+<script>
+// Floating hearts
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.style.left = Math.random() * 100 + "vw";
+  h.innerText = ["💖","💕","💘"][Math.floor(Math.random()*3)];
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 8000);
+}, 600);
+
+// Cherry blossoms
+setInterval(() => {
+  const b = document.createElement("div");
+  b.className = "blossom";
+  b.style.left = Math.random() * 100 + "vw";
+  b.innerText = "🌸";
+  document.body.appendChild(b);
+  setTimeout(() => b.remove(), 12000);
+}, 900);
+
+// Optional: confetti explosion once on load
+function confetti() {
+  const emojis = ["💖","✨","🌸","💘","💞"];
+  for (let i = 0; i < 80; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    const duration = Math.random() * 2 + 1.5; // 1.5s – 3.5s
+    const rotate = Math.random() * 720;
+
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.top = "30%";
+
+    c.animate([
+      { transform: "translateY(0) rotate(0deg)", opacity: 1 },
+      { transform: `translateY(100vh) rotate(${rotate}deg)`, opacity: 0 }
+    ], {
+      duration: duration * 1000,
+      easing: "ease-out"
+    });
+
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), duration * 1000);
+  }
+}
+
+// Trigger confetti on page load
+window.onload = confetti;
+</script>
 
 <!-- Soft piano -->
 <audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8c6c4a68.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/09/audio_3c8a7bfb29.mp3?filename=soft-piano-ambient-114166.mp3" type="audio/mpeg">
 </audio>
 
 </body>
