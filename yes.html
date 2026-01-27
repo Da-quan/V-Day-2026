@@ -38,7 +38,7 @@ body {
   to { transform: translateX(120vw); }
 }
 
-/* Scene box / card */
+/* Scene card */
 .scene {
   position: absolute;
   top: 50%;
@@ -53,38 +53,75 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* Kissing emojis */
-.kiss {
+/* Moving couple emojis */
+.emoji {
   font-size: 72px;
-  animation: kissGlow 2s ease-in-out infinite;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-@keyframes kissGlow {
-  0%,100% { text-shadow: 0 0 10px pink; }
-  50% { text-shadow: 0 0 25px hotpink; }
+.left {
+  left: 20px;
+  animation: leftMove 4s forwards;
 }
 
-/* Love note */
-.note {
-  margin-top: 15px;
-  font-size: 16px;
-  min-height: 50px;
-  color: #e63946;
+.right {
+  right: 20px;
+  animation: rightMove 4s forwards;
 }
 
-/* Background hearts */
+@keyframes leftMove {
+  0% { left: 20px; }
+  25% { left: 140px; }
+  100% { left: 140px; }
+}
+
+@keyframes rightMove {
+  0% { right: 20px; }
+  25% { right: 140px; }
+  100% { right: 140px; }
+}
+
+/* Kiss animation in middle */
+.kiss {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  font-size: 64px;
+  opacity: 0;
+  animation: kiss 4s forwards;
+}
+
+@keyframes kiss {
+  0%, 25% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  35%, 55% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* Hearts */
 .heart {
   position: absolute;
+  top: 50%;
+  left: 50%;
   font-size: 22px;
-  animation: floatHeart 8s linear infinite;
+  opacity: 0;
+  animation: floatHeart 4s forwards;
 }
+
+.heart.one { margin-left: -25px; animation-delay: 0s; }
+.heart.two { margin-left: 25px; animation-delay: 0.3s; }
+.heart.three { animation-delay: 0.6s; }
 
 @keyframes floatHeart {
-  from { transform: translateY(100vh); opacity: 1; }
-  to { transform: translateY(-10vh); opacity: 0; }
+  0%, 45% { opacity: 0; transform: translate(-50%, -25px); }
+  55% { opacity: 1; transform: translate(-50%, -25px); }
+  75% { opacity: 0; transform: translate(-50%, -60px); }
+  100% { opacity: 0; transform: translate(-50%, -60px); }
 }
 
-/* Blossoms */
+/* Cherry blossoms falling */
 .blossom {
   position: absolute;
   font-size: 22px;
@@ -94,6 +131,13 @@ body {
 @keyframes fallBlossom {
   from { transform: translateY(-10vh); }
   to { transform: translateY(110vh); }
+}
+
+/* Love note */
+.note {
+  margin-top: 150px; /* space under the emoji animation */
+  font-size: 16px;
+  color: #e63946;
 }
 
 /* Confetti */
@@ -115,24 +159,24 @@ body {
 <div class="cloud three">☁️☁️</div>
 <div class="cloud four">☁️☁️☁️</div>
 
-<!-- Scene / Card -->
+<!-- Scene card -->
 <div class="scene">
-  <div class="kiss" id="kiss">🥰💋😍</div>
-  <div class="note" id="note">Natalie, I choose you today and always 💞 — Love, Quan</div>
+  <!-- Moving couple -->
+  <div class="emoji left">🥰</div>
+  <div class="emoji right">😍</div>
+  <!-- Kiss appears in middle -->
+  <div class="kiss">💋</div>
+  <div class="heart one">💖</div>
+  <div class="heart two">💕</div>
+  <div class="heart three">💖</div>
+
+  <div class="note">
+    Natalie, I choose you today and always 💞 — Love, Quan
+  </div>
 </div>
 
-<!-- Floating hearts and blossoms -->
+<!-- Cherry blossoms and floating hearts -->
 <script>
-// Floating hearts
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.style.left = Math.random() * 100 + "vw";
-  h.innerText = ["💖","💕","💘"][Math.floor(Math.random()*3)];
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 8000);
-}, 600);
-
 // Cherry blossoms
 setInterval(() => {
   const b = document.createElement("div");
@@ -143,7 +187,7 @@ setInterval(() => {
   setTimeout(() => b.remove(), 12000);
 }, 900);
 
-// Optional: confetti explosion once on load
+// Optional confetti explosion once on load
 function confetti() {
   const emojis = ["💖","✨","🌸","💘","💞"];
   for (let i = 0; i < 80; i++) {
@@ -151,7 +195,7 @@ function confetti() {
     c.className = "confetti";
     c.innerText = emojis[Math.floor(Math.random() * emojis.length)];
 
-    const duration = Math.random() * 2 + 1.5; // 1.5s – 3.5s
+    const duration = Math.random() * 2 + 1.5;
     const rotate = Math.random() * 720;
 
     c.style.left = Math.random() * 100 + "vw";
@@ -170,7 +214,6 @@ function confetti() {
   }
 }
 
-// Trigger confetti on page load
 window.onload = confetti;
 </script>
 
