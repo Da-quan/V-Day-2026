@@ -9,95 +9,111 @@
     background: linear-gradient(to top, #ffd6e0, #ffb3c6, #ff8fab);
     height: 100vh;
     margin: 0;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: Arial, sans-serif;
+    overflow: hidden;
   }
 
-  /* Sky elements */
-  .cloud, .star {
+  /* Scene box */
+  .card {
+    position: relative;
+    width: 360px;
+    height: 420px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
+
+  /* Sky */
+  .sky {
     position: absolute;
-    opacity: 0.6;
+    top: 0;
+    width: 100%;
+    height: 45%;
+    text-align: center;
+    font-size: 22px;
+    padding-top: 10px;
   }
 
   .cloud {
-    font-size: 40px;
-    animation: drift 15s linear forwards;
+    position: absolute;
+    font-size: 34px;
+    animation: cloudMove 15s linear forwards;
   }
 
-  .cloud:nth-child(1) { top: 15%; left: -20%; }
-  .cloud:nth-child(2) { top: 25%; left: -30%; animation-delay: 3s; }
+  .cloud.one { left: -20%; top: 20px; }
+  .cloud.two { left: -30%; top: 55px; animation-delay: 3s; }
 
-  .star {
+  @keyframes cloudMove {
+    to { transform: translateX(140%); }
+  }
+
+  /* Cherry blossoms falling */
+  .petal {
+    position: absolute;
+    top: -20px;
     font-size: 18px;
-    top: 10%;
-    animation: twinkle 3s infinite alternate;
+    opacity: 0.7;
+    animation: fall 15s linear forwards;
   }
 
-  .star:nth-child(3) { left: 20%; }
-  .star:nth-child(4) { left: 60%; animation-delay: 1s; }
+  .petal:nth-child(1) { left: 20%; animation-delay: 2s; }
+  .petal:nth-child(2) { left: 50%; animation-delay: 5s; }
+  .petal:nth-child(3) { left: 75%; animation-delay: 8s; }
 
-  @keyframes drift {
-    to { transform: translateX(140vw); }
-  }
-
-  @keyframes twinkle {
-    from { opacity: 0.3; }
-    to { opacity: 0.8; }
+  @keyframes fall {
+    to { transform: translateY(460px) rotate(360deg); }
   }
 
   /* Ground */
   .ground {
     position: absolute;
-    bottom: 0;
+    bottom: 60px;
     width: 100%;
-    font-size: 28px;
     text-align: center;
+    font-size: 26px;
   }
 
-  /* Main scene */
-  .scene {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
+  /* Couple */
   .emoji {
-    font-size: 80px;
+    font-size: 72px;
     position: absolute;
-    top: 55%;
+    top: 58%;
     transform: translateY(-50%);
   }
 
   .left {
-    left: 10%;
-    animation: moveLeft 15s forwards;
+    left: 20px;
+    animation: leftMove 15s forwards;
   }
 
   .right {
-    right: 10%;
-    animation: moveRight 15s forwards;
+    right: 20px;
+    animation: rightMove 15s forwards;
   }
 
-  @keyframes moveLeft {
-    0% { left: 10%; }
-    25% { left: 38%; }
-    100% { left: 38%; }
+  @keyframes leftMove {
+    0% { left: 20px; }
+    25% { left: 120px; }
+    100% { left: 120px; }
   }
 
-  @keyframes moveRight {
-    0% { right: 10%; }
-    25% { right: 38%; }
-    100% { right: 38%; }
+  @keyframes rightMove {
+    0% { right: 20px; }
+    25% { right: 120px; }
+    100% { right: 120px; }
   }
 
+  /* Kiss */
   .kiss {
     position: absolute;
-    top: 55%;
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.5);
-    font-size: 70px;
+    font-size: 64px;
     opacity: 0;
     animation: kiss 15s forwards;
   }
@@ -105,14 +121,17 @@
   .kiss::after {
     content: "✨ 💖 ✨";
     display: block;
-    font-size: 22px;
+    font-size: 20px;
     opacity: 0;
     animation: sparkle 15s forwards;
   }
 
   @keyframes kiss {
     0%, 25% { opacity: 0; }
-    35%, 55% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    35%, 55% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.15);
+    }
     100% { opacity: 1; }
   }
 
@@ -122,37 +141,39 @@
     100% { opacity: 0; }
   }
 
+  /* Hearts */
   .heart {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     font-size: 22px;
     opacity: 0;
     animation: floatHeart 15s forwards;
   }
 
-  .heart:nth-child(1) { margin-left: -30px; }
-  .heart:nth-child(2) { margin-left: 30px; animation-delay: .3s; }
-  .heart:nth-child(3) { margin-left: 0; animation-delay: .6s; }
+  .heart.one { margin-left: -25px; }
+  .heart.two { margin-left: 25px; animation-delay: .3s; }
+  .heart.three { animation-delay: .6s; }
 
   @keyframes floatHeart {
     0%, 45% { opacity: 0; }
-    55% { opacity: 1; transform: translate(-50%, -30px); }
-    75% { opacity: 0; transform: translate(-50%, -70px); }
+    55% { opacity: 1; transform: translate(-50%, -25px); }
+    75% { opacity: 0; transform: translate(-50%, -60px); }
     100% { opacity: 0; }
   }
 
+  /* Note */
   .note {
     position: absolute;
-    bottom: 80px;
+    bottom: 15px;
     width: 100%;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     color: #e63946;
     white-space: nowrap;
     overflow: hidden;
     border-right: 2px solid #e63946;
-    animation: typing 15s steps(70) forwards;
+    animation: typing 15s steps(65) forwards;
   }
 
   @keyframes typing {
@@ -165,30 +186,39 @@
 
 <body>
 
-<!-- Scenic emoji sky -->
-<div class="cloud">☁️</div>
-<div class="cloud">☁️</div>
-<div class="star">✨</div>
-<div class="star">⭐</div>
+<div class="card">
 
-<!-- Main animation -->
-<div class="scene">
+  <!-- Sky -->
+  <div class="sky">
+    🌸 🌸 🌸
+    <div class="cloud one">☁️</div>
+    <div class="cloud two">☁️</div>
+  </div>
+
+  <!-- Falling petals -->
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
+
+  <!-- Scene -->
   <div class="emoji left">🥰</div>
   <div class="emoji right">😍</div>
   <div class="kiss">💋</div>
 
-  <div class="heart">💖</div>
-  <div class="heart">💕</div>
-  <div class="heart">💖</div>
+  <div class="heart one">💖</div>
+  <div class="heart two">💕</div>
+  <div class="heart three">💖</div>
 
+  <!-- Ground -->
+  <div class="ground">
+    🌸 🌸 🌸 🌷 🌸 🌸 🌸
+  </div>
+
+  <!-- Note -->
   <div class="note">
     Natalie, I choose you today and always 💞 — Love, Quan
   </div>
-</div>
 
-<!-- Flower ground -->
-<div class="ground">
-  🌸 🌷 🌼 🌸 🌷 🌼 🌸 🌷 🌼
 </div>
 
 <!-- Soft piano -->
