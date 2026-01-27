@@ -2,152 +2,199 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Valentine’s 💖</title>
+<title>Happy Valentine’s Natalie 💖</title>
 
 <style>
   body {
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(to top, #ffd6e0, #ffb3c6, #ff8fab);
     height: 100vh;
     margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Sky elements */
+  .cloud, .star {
+    position: absolute;
+    opacity: 0.6;
+  }
+
+  .cloud {
+    font-size: 40px;
+    animation: drift 15s linear forwards;
+  }
+
+  .cloud:nth-child(1) { top: 15%; left: -20%; }
+  .cloud:nth-child(2) { top: 25%; left: -30%; animation-delay: 3s; }
+
+  .star {
+    font-size: 18px;
+    top: 10%;
+    animation: twinkle 3s infinite alternate;
+  }
+
+  .star:nth-child(3) { left: 20%; }
+  .star:nth-child(4) { left: 60%; animation-delay: 1s; }
+
+  @keyframes drift {
+    to { transform: translateX(140vw); }
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.3; }
+    to { opacity: 0.8; }
+  }
+
+  /* Ground */
+  .ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 28px;
+    text-align: center;
+  }
+
+  /* Main scene */
+  .scene {
+    position: absolute;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Arial', sans-serif;
-    overflow: hidden;
-  }
-
-  .scene {
-    position: relative;
-    width: 360px;
-    height: 300px;
-    text-align: center;
   }
 
   .emoji {
     font-size: 80px;
     position: absolute;
-    top: 40%;
+    top: 55%;
     transform: translateY(-50%);
   }
 
   .left {
-    left: 0;
-    animation: leftMove 10s infinite;
+    left: 10%;
+    animation: moveLeft 15s forwards;
   }
 
   .right {
-    right: 0;
-    animation: rightMove 10s infinite;
+    right: 10%;
+    animation: moveRight 15s forwards;
+  }
+
+  @keyframes moveLeft {
+    0% { left: 10%; }
+    25% { left: 38%; }
+    100% { left: 38%; }
+  }
+
+  @keyframes moveRight {
+    0% { right: 10%; }
+    25% { right: 38%; }
+    100% { right: 38%; }
   }
 
   .kiss {
     position: absolute;
-    top: 40%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.5);
     font-size: 70px;
     opacity: 0;
-    animation: kissMoment 10s infinite;
+    animation: kiss 15s forwards;
   }
 
-  .confetti {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 25px;
+  .kiss::after {
+    content: "✨ 💖 ✨";
+    display: block;
+    font-size: 22px;
     opacity: 0;
-    animation: confettiPop 10s infinite;
+    animation: sparkle 15s forwards;
+  }
+
+  @keyframes kiss {
+    0%, 25% { opacity: 0; }
+    35%, 55% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    100% { opacity: 1; }
+  }
+
+  @keyframes sparkle {
+    0%, 35% { opacity: 0; }
+    45%, 60% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 22px;
+    opacity: 0;
+    animation: floatHeart 15s forwards;
+  }
+
+  .heart:nth-child(1) { margin-left: -30px; }
+  .heart:nth-child(2) { margin-left: 30px; animation-delay: .3s; }
+  .heart:nth-child(3) { margin-left: 0; animation-delay: .6s; }
+
+  @keyframes floatHeart {
+    0%, 45% { opacity: 0; }
+    55% { opacity: 1; transform: translate(-50%, -30px); }
+    75% { opacity: 0; transform: translate(-50%, -70px); }
+    100% { opacity: 0; }
   }
 
   .note {
     position: absolute;
-    bottom: 10px;
+    bottom: 80px;
     width: 100%;
+    text-align: center;
     font-size: 18px;
     color: #e63946;
     white-space: nowrap;
     overflow: hidden;
     border-right: 2px solid #e63946;
-    animation: typing 10s steps(60) infinite;
-  }
-
-  /* Animations */
-
-  @keyframes leftMove {
-    0%   { left: 0; }
-    35%  { left: 120px; }
-    55%  { left: 120px; }
-    100% { left: 0; }
-  }
-
-  @keyframes rightMove {
-    0%   { right: 0; }
-    35%  { right: 120px; }
-    55%  { right: 120px; }
-    100% { right: 0; }
-  }
-
-  @keyframes kissMoment {
-    0%, 40% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-    }
-    45%, 65% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.2);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-    }
-  }
-
-  @keyframes confettiPop {
-    0%, 44% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(0);
-    }
-    46%, 60% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(60px);
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(120px);
-    }
+    animation: typing 15s steps(70) forwards;
   }
 
   @keyframes typing {
-    0%, 55% { width: 0; opacity: 0; }
-    60% {
-      opacity: 1;
-      width: 0;
-    }
-    80% {
-      width: 100%;
-    }
-    100% {
-      width: 100%;
-    }
+    0%, 65% { width: 0; opacity: 0; }
+    70% { opacity: 1; }
+    100% { width: 100%; }
   }
 </style>
 </head>
 
 <body>
 
+<!-- Scenic emoji sky -->
+<div class="cloud">☁️</div>
+<div class="cloud">☁️</div>
+<div class="star">✨</div>
+<div class="star">⭐</div>
+
+<!-- Main animation -->
 <div class="scene">
   <div class="emoji left">🥰</div>
   <div class="emoji right">😍</div>
-
   <div class="kiss">💋</div>
 
-  <div class="confetti">🎉 💖 🎉 💕 🎉</div>
+  <div class="heart">💖</div>
+  <div class="heart">💕</div>
+  <div class="heart">💖</div>
 
   <div class="note">
-    I choose you today, tomorrow, and always 💞
+    Natalie, I choose you today and always 💞 — Love, Quan
   </div>
 </div>
+
+<!-- Flower ground -->
+<div class="ground">
+  🌸 🌷 🌼 🌸 🌷 🌼 🌸 🌷 🌼
+</div>
+
+<!-- Soft piano -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8c6c4a68.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>
