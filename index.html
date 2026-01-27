@@ -175,25 +175,53 @@ function typeNote() {
 }
 typeNote();
 
-// Floating hearts background
-setInterval(() => {
+// Function to create falling hearts
+function createHeart() {
   const h = document.createElement("div");
   h.className = "heart";
   h.style.left = Math.random() * 100 + "vw";
   h.innerText = "💖";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 8000);
-}, 600);
 
-// Cherry blossoms
-setInterval(() => {
+  const duration = Math.random() * 5 + 8; // 8s – 13s
+  h.animate([
+    { transform: "translateY(-10vh)", opacity: 1 },
+    { transform: "translateY(100vh)", opacity: 0 }
+  ], {
+    duration: duration * 1000,
+    easing: "linear"
+  });
+
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), duration * 1000);
+}
+
+// Function to create falling cherry blossoms
+function createBlossom() {
   const b = document.createElement("div");
   b.className = "blossom";
   b.style.left = Math.random() * 100 + "vw";
   b.innerText = "🌸";
+
+  const duration = Math.random() * 6 + 10; // 10s – 16s
+  b.animate([
+    { transform: "translateY(-10vh)", opacity: 1 },
+    { transform: "translateY(110vh)", opacity: 0 }
+  ], {
+    duration: duration * 1000,
+    easing: "linear"
+  });
+
   document.body.appendChild(b);
-  setTimeout(() => b.remove(), 12000);
-}, 900);
+  setTimeout(() => b.remove(), duration * 1000);
+}
+
+// Start falling hearts and blossoms after YES click
+function startFalling() {
+  for (let i = 0; i < 40; i++) {
+    setTimeout(createHeart, i * 300);
+    setTimeout(createBlossom, i * 450);
+  }
+}
 
 // Confetti explosion
 function confetti() {
@@ -206,7 +234,7 @@ function confetti() {
     c.className = "confetti";
     c.innerText = emojis[Math.floor(Math.random() * emojis.length)];
 
-    const duration = Math.random() * 2 + 1.5; // 1.5s – 3.5s
+    const duration = Math.random() * 2 + 2.5; // slower: 2.5s – 4.5s
     const rotate = Math.random() * 720;
 
     c.style.left = Math.random() * 100 + "vw";
@@ -225,7 +253,7 @@ function confetti() {
   }
 }
 
-// YES button handler with fade + redirect
+// YES button handler
 let alreadyClicked = false;
 function handleYes() {
   if (alreadyClicked) return;
@@ -240,11 +268,12 @@ function handleYes() {
   btn.style.cursor = "default";
 
   confetti();
+  startFalling(); // start slow falling hearts and blossoms
   scene.classList.add("fade-out");
 
   setTimeout(() => {
     window.location.href = "yes.html";
-  }, 1800); // Wait for confetti/fade
+  }, 2500); // wait for confetti + fade
 }
 </script>
 
