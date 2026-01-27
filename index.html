@@ -28,13 +28,17 @@ body {
   font-size: 40px;
   animation: floatCloud 35s linear infinite;
 }
+.cloud.one { top:10%; left:-20%; }
+.cloud.two { top:25%; left:-40%; animation-delay:5s; }
+.cloud.three { top:40%; left:-30%; animation-delay:10s; }
+.cloud.four { top:55%; left:-50%; animation-delay:15s; }
 
 @keyframes floatCloud {
-  from { transform: translateX(-120px); }
-  to { transform: translateX(110vw); }
+  from { transform: translateX(0); }
+  to { transform: translateX(120vw); }
 }
 
-/* Center card */
+/* Scene box */
 .scene {
   position: absolute;
   top: 50%;
@@ -47,6 +51,13 @@ body {
   width: 85%;
   max-width: 350px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: opacity 0.6s, transform 0.6s;
+}
+
+/* Fade out effect */
+.scene.fade-out {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.95);
 }
 
 /* Kissing emojis */
@@ -74,7 +85,7 @@ body {
 .note {
   margin-top: 15px;
   font-size: 16px;
-  min-height: 70px;
+  min-height: 50px;
 }
 
 /* YES button */
@@ -96,7 +107,7 @@ body {
   100% { transform: scale(1); }
 }
 
-/* Floating hearts */
+/* Background hearts */
 .heart {
   position: absolute;
   font-size: 22px;
@@ -120,22 +131,11 @@ body {
   to { transform: translateY(110vh); }
 }
 
-/* Confetti */
+/* Confetti (dynamic with JS) */
 .confetti {
   position: absolute;
   font-size: 26px;
-  animation: confettiFall 2.5s ease-out forwards;
-}
-
-@keyframes confettiFall {
-  from {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
+  opacity: 1;
 }
 </style>
 </head>
@@ -145,26 +145,27 @@ body {
 <div class="sun">☀️</div>
 
 <!-- Clouds -->
-<div class="cloud" style="top:10%; left:-20%">☁️☁️</div>
-<div class="cloud" style="top:22%; left:-40%; animation-delay:6s;">☁️☁️☁️</div>
-<div class="cloud" style="top:38%; left:-30%; animation-delay:12s;">☁️☁️</div>
-<div class="cloud" style="top:55%; left:-50%; animation-delay:18s;">☁️☁️☁️</div>
+<div class="cloud one">☁️☁️</div>
+<div class="cloud two">☁️☁️☁️</div>
+<div class="cloud three">☁️☁️</div>
+<div class="cloud four">☁️☁️☁️</div>
 
 <div class="scene">
   <div class="kiss" id="kiss">🥰💋😍</div>
   <div class="note" id="note"></div>
-  <button class="yes-btn" onclick="confetti()">❤️ YES ❤️</button>
+  <button class="yes-btn" id="yesBtn" onclick="handleYes()">❤️ YES ❤️</button>
 </div>
 
 <!-- Soft piano -->
 <audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/10/09/audio_3c8a7bfb29.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/09/audio_3c8a7bfb29.mp3?filename=soft-piano-ambient-114166.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// Typing text
+// Love note typing
 const text = "Dear Natalie 💕\n\nWill you be my Valentine?\n\nLove,\nQuan 💖";
 let i = 0;
+const note = document.getElementById("note");
 function typeNote() {
   if (i < text.length) {
     note.innerHTML += text[i] === "\n" ? "<br>" : text[i];
@@ -184,7 +185,7 @@ setInterval(() => {
   setTimeout(() => h.remove(), 8000);
 }, 600);
 
-// Blossoms
+// Cherry blossoms
 setInterval(() => {
   const b = document.createElement("div");
   b.className = "blossom";
@@ -194,21 +195,56 @@ setInterval(() => {
   setTimeout(() => b.remove(), 12000);
 }, 900);
 
-// CONFETTI EXPLOSION
+// Confetti explosion
 function confetti() {
   const kiss = document.getElementById("kiss");
   kiss.classList.add("explode");
 
   const emojis = ["💖","✨","🌸","💘","💞"];
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 90; i++) {
     const c = document.createElement("div");
     c.className = "confetti";
     c.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    const duration = Math.random() * 2 + 1.5; // 1.5s – 3.5s
+    const rotate = Math.random() * 720;
+
     c.style.left = Math.random() * 100 + "vw";
     c.style.top = "40%";
+
+    c.animate([
+      { transform: "translateY(0) rotate(0deg)", opacity: 1 },
+      { transform: `translateY(100vh) rotate(${rotate}deg)`, opacity: 0 }
+    ], {
+      duration: duration * 1000,
+      easing: "ease-out"
+    });
+
     document.body.appendChild(c);
-    setTimeout(() => c.remove(), 2500);
+    setTimeout(() => c.remove(), duration * 1000);
   }
+}
+
+// YES button handler with fade + redirect
+let alreadyClicked = false;
+function handleYes() {
+  if (alreadyClicked) return;
+  alreadyClicked = true;
+
+  const btn = document.getElementById("yesBtn");
+  const scene = document.querySelector(".scene");
+
+  // Disable button
+  btn.disabled = true;
+  btn.style.opacity = "0.6";
+  btn.style.cursor = "default";
+
+  confetti();
+  scene.classList.add("fade-out");
+
+  setTimeout(() => {
+    window.location.href = "yes.html";
+  }, 1800); // Wait for confetti/fade
 }
 </script>
 

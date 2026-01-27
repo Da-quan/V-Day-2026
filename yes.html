@@ -68,124 +68,43 @@
     to { transform: translateY(460px) rotate(360deg); }
   }
 
-  /* Ground */
-  .ground {
-    position: absolute;
-    bottom: 60px;
-    width: 100%;
-    text-align: center;
-    font-size: 26px;
-  }
-
   /* Couple */
   .emoji {
     font-size: 72px;
     position: absolute;
-    top: 58%;
-    transform: translateY(-50%);
-  }
-
-  .left {
-    left: 20px;
-    animation: leftMove 15s forwards;
-  }
-
-  .right {
-    right: 20px;
-    animation: rightMove 15s forwards;
-  }
-
-  @keyframes leftMove {
-    0% { left: 20px; }
-    25% { left: 120px; }
-    100% { left: 120px; }
-  }
-
-  @keyframes rightMove {
-    0% { right: 20px; }
-    25% { right: 120px; }
-    100% { right: 120px; }
-  }
-
-  /* Kiss */
-  .kiss {
-    position: absolute;
-    top: 58%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.5);
-    font-size: 64px;
-    opacity: 0;
-    animation: kiss 15s forwards;
+    transform: translate(-50%, -50%);
   }
 
-  .kiss::after {
-    content: "✨ 💖 ✨";
-    display: block;
-    font-size: 20px;
-    opacity: 0;
-    animation: sparkle 15s forwards;
+  /* Sparkles & hearts floating */
+  .sparkle {
+    position: absolute;
+    font-size: 24px;
+    animation: sparkleAnim 12s linear infinite;
   }
 
-  @keyframes kiss {
-    0%, 25% { opacity: 0; }
-    35%, 55% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.15);
-    }
-    100% { opacity: 1; }
+  @keyframes sparkleAnim {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-400px); opacity: 0; }
   }
 
-  @keyframes sparkle {
-    0%, 35% { opacity: 0; }
-    45%, 60% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-
-  /* Hearts */
   .heart {
     position: absolute;
-    top: 55%;
-    left: 50%;
-    font-size: 22px;
-    opacity: 0;
-    animation: floatHeart 15s forwards;
+    font-size: 24px;
+    animation: heartAnim 12s linear infinite;
   }
 
-  .heart.one { margin-left: -25px; }
-  .heart.two { margin-left: 25px; animation-delay: .3s; }
-  .heart.three { animation-delay: .6s; }
-
-  @keyframes floatHeart {
-    0%, 45% { opacity: 0; }
-    55% { opacity: 1; transform: translate(-50%, -25px); }
-    75% { opacity: 0; transform: translate(-50%, -60px); }
-    100% { opacity: 0; }
-  }
-
-  /* Note */
-  .note {
-    position: absolute;
-    bottom: 15px;
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    color: #e63946;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 2px solid #e63946;
-    animation: typing 15s steps(65) forwards;
-  }
-
-  @keyframes typing {
-    0%, 65% { width: 0; opacity: 0; }
-    70% { opacity: 1; }
-    100% { width: 100%; }
+  @keyframes heartAnim {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-400px); opacity: 0; }
   }
 </style>
 </head>
 
 <body>
-
 <div class="card">
 
   <!-- Sky -->
@@ -200,24 +119,14 @@
   <div class="petal">🌸</div>
   <div class="petal">🌸</div>
 
-  <!-- Scene -->
-  <div class="emoji left">🥰</div>
-  <div class="emoji right">😍</div>
-  <div class="kiss">💋</div>
+  <!-- Couple emojis -->
+  <div class="emoji">🥰💋😍</div>
 
-  <div class="heart one">💖</div>
-  <div class="heart two">💕</div>
-  <div class="heart three">💖</div>
-
-  <!-- Ground -->
-  <div class="ground">
-    🌸 🌸 🌸 🌷 🌸 🌸 🌸
-  </div>
-
-  <!-- Note -->
-  <div class="note">
-    Natalie, I choose you today and always 💞 — Love, Quan
-  </div>
+  <!-- Floating sparkles and hearts -->
+  <div class="sparkle" style="left:30%">✨</div>
+  <div class="sparkle" style="left:70%">✨</div>
+  <div class="heart" style="left:40%">💖</div>
+  <div class="heart" style="left:60%">💕</div>
 
 </div>
 
