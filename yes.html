@@ -56,6 +56,8 @@ body {
 /* Emoji group */
 .emoji-group {
   position: relative;
+  height: 140px;           /* container height to keep emojis inside card */
+  margin-bottom: 10px;
   transition: transform 0.4s ease;
 }
 
@@ -63,8 +65,7 @@ body {
 .emoji {
   font-size: 72px;
   position: absolute;
-  top: 10%;
-  transform: translateY(-50%);
+  top: 30px;                /* start position inside card */
 }
 
 .left {
@@ -92,18 +93,18 @@ body {
 /* Kiss */
 .kiss {
   position: absolute;
-  top: 50%;
+  top: 60px;               /* inside card */
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.5);
+  transform: translateX(-50%) scale(0.5);
   font-size: 64px;
   opacity: 0;
   animation: kiss 4s forwards;
 }
 
 @keyframes kiss {
-  0%, 25% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-  35%, 55% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  0%, 25% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  35%, 55% { opacity: 1; transform: translateX(-50%) scale(1.15); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
 }
 
 /* Floating hearts */
@@ -129,7 +130,7 @@ body {
 
 /* Note */
 .note {
-  margin-top: 120px;
+  margin-top: 20px;
   font-size: 16px;
   color: #e63946;
   min-height: 90px;
@@ -147,7 +148,7 @@ body {
   to { transform: translateY(110vh); }
 }
 
-/* Confetti + heart burst */
+/* Confetti */
 .confetti {
   position: absolute;
   font-size: 26px;
@@ -184,7 +185,7 @@ body {
 </audio>
 
 <script>
-// Blossoms
+// Cherry blossoms
 setInterval(() => {
   const b = document.createElement("div");
   b.className = "blossom";
@@ -220,7 +221,7 @@ function confetti(count = 80, emojis = ["💖","✨","🌸","💘","💞"]) {
   }
 }
 
-// FINAL heart burst 💥💖
+// Final heart burst
 function heartBurst() {
   confetti(120, ["💖","💗","💕","💞","💘"]);
 }
@@ -250,12 +251,12 @@ function typeNote() {
     i++;
     setTimeout(typeNote, 60);
   } else {
-    // LAST CHARACTER → HEART BURST
+    // Final heart burst
     heartBurst();
   }
 }
 
-// Start
+// Start typing after page load
 window.onload = () => {
   confetti(60);
   setTimeout(typeNote, 1400);
