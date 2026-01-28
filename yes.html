@@ -105,18 +105,18 @@ body {
   100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
 }
 
-/* 💖 LOOPING FLOATING HEARTS */
+/* Floating hearts (looping) */
 .heart {
   position: absolute;
   font-size: 22px;
+  opacity: 0;
   left: 50%;
-  opacity: 0; /* hidden at start */
 }
 
 @keyframes floatHeartLoop {
-  0% { transform: translate(-50%, 0); opacity: 1; }
-  80% { transform: translate(-50%, -60px); opacity: 1; }
-  100% { transform: translate(-50%, -65px); opacity: 0; }
+  0% { transform: translate(-50%, 50px); opacity: 1; }  /* Start just below the kiss */
+  80% { transform: translate(-50%, -40px); opacity: 1; }
+  100% { transform: translate(-50%, -55px); opacity: 0; } /* disappear at top */
 }
 
 /* Note */
@@ -212,27 +212,23 @@ function heartBurst() {
 
 // Typing text
 const text =
-"💖 Natalie 💖\n💘 Happy Valentine's Day! 💘\n💞 I love you forever and always 💞\n\n— Love,\n💗 Quan 💗";
+"💖 Natalie 💖\n\n💘 Happy Valentine's Day! 💘\n💞 I love you forever and always 💞\n\n— Love,\n💗 Quan 💗";
 
 let i = 0;
 const note = document.getElementById("note");
 const sound = document.getElementById("typeSound");
 const emojiGroup = document.getElementById("emojiGroup");
 
-// Start the looping hearts after kiss finishes
+// Start floating hearts from the bottom of kiss
 function startHearts() {
   const hearts = document.querySelectorAll(".heart");
   hearts.forEach((heart, idx) => {
-    // Reset position each loop
     setInterval(() => {
-      heart.style.animation = `floatHeartLoop 3s forwards`;
+      heart.style.left = "50%";
       heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
       heart.style.opacity = "1";
-      // Reset animation to retrigger
-      heart.style.animation = "none";
-      void heart.offsetWidth;
-      heart.style.animation = `floatHeartLoop 3s forwards`;
-    }, idx * 600 + 300); // staggered start
+      heart.style.animation = "floatHeartLoop 3s forwards";
+    }, idx * 600 + 500); // staggered start
   });
 }
 
@@ -248,9 +244,8 @@ function typeNote() {
     i++;
     setTimeout(typeNote, 60);
   } else {
-    // Start hearts after kiss
+    // Start hearts immediately after kiss appears
     startHearts();
-    // Final confetti
     heartBurst();
   }
 }
