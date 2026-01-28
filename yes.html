@@ -38,7 +38,7 @@ body {
   to { transform: translateX(120vw); }
 }
 
-/* Scene card */
+/* Scene */
 .scene {
   position: absolute;
   top: 50%;
@@ -51,6 +51,12 @@ body {
   width: 85%;
   max-width: 400px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Emoji group */
+.emoji-group {
+  position: relative;
+  transition: transform 0.4s ease;
 }
 
 /* Couple emojis */
@@ -100,7 +106,7 @@ body {
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
 }
 
-/* Hearts */
+/* Floating hearts */
 .heart {
   position: absolute;
   top: 50%;
@@ -121,12 +127,12 @@ body {
   100% { opacity: 0; transform: translate(-50%, -60px); }
 }
 
-/* Love note */
+/* Note */
 .note {
-  margin-top: 150px;
+  margin-top: 120px;
   font-size: 16px;
   color: #e63946;
-  min-height: 80px;
+  min-height: 90px;
 }
 
 /* Blossoms */
@@ -141,7 +147,7 @@ body {
   to { transform: translateY(110vh); }
 }
 
-/* Confetti */
+/* Confetti + heart burst */
 .confetti {
   position: absolute;
   font-size: 26px;
@@ -159,13 +165,15 @@ body {
 <div class="cloud four">☁️☁️☁️</div>
 
 <div class="scene">
-  <div class="emoji left">🥰</div>
-  <div class="emoji right">😍</div>
+  <div class="emoji-group" id="emojiGroup">
+    <div class="emoji left">🥰</div>
+    <div class="emoji right">😍</div>
 
-  <div class="kiss">💋</div>
-  <div class="heart one">💖</div>
-  <div class="heart two">💕</div>
-  <div class="heart three">💖</div>
+    <div class="kiss">💋</div>
+    <div class="heart one">💖</div>
+    <div class="heart two">💕</div>
+    <div class="heart three">💖</div>
+  </div>
 
   <div class="note" id="note"></div>
 </div>
@@ -187,14 +195,13 @@ setInterval(() => {
 }, 900);
 
 // Confetti
-function confetti() {
-  const emojis = ["💖","✨","🌸","💘","💞"];
-  for (let i = 0; i < 80; i++) {
+function confetti(count = 80, emojis = ["💖","✨","🌸","💘","💞"]) {
+  for (let i = 0; i < count; i++) {
     const c = document.createElement("div");
     c.className = "confetti";
     c.innerText = emojis[Math.floor(Math.random() * emojis.length)];
 
-    const duration = Math.random() * 2 + 3;
+    const duration = Math.random() * 2 + 2.5;
     const rotate = Math.random() * 720;
 
     c.style.left = Math.random() * 100 + "vw";
@@ -213,12 +220,19 @@ function confetti() {
   }
 }
 
-// Typing text 💕
+// FINAL heart burst 💥💖
+function heartBurst() {
+  confetti(120, ["💖","💗","💕","💞","💘"]);
+}
+
+// Typing text
 const text =
 "Natalie 💖\n\nI love you forever and always 💞\n\n— Love,\nQuan";
+
 let i = 0;
 const note = document.getElementById("note");
 const sound = document.getElementById("typeSound");
+const emojiGroup = document.getElementById("emojiGroup");
 
 function typeNote() {
   if (i < text.length) {
@@ -229,14 +243,21 @@ function typeNote() {
       sound.play();
     }
 
+    // Lift emojis as text grows
+    const shift = Math.min(i * 0.18, 34);
+    emojiGroup.style.transform = `translateY(-${shift}px)`;
+
     i++;
     setTimeout(typeNote, 60);
+  } else {
+    // LAST CHARACTER → HEART BURST
+    heartBurst();
   }
 }
 
-// Start everything
+// Start
 window.onload = () => {
-  confetti();
+  confetti(60);
   setTimeout(typeNote, 1400);
 };
 </script>
