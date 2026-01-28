@@ -8,7 +8,7 @@
 <style>
 body {
   margin: 0;
-  background: linear-gradient(#aee7ff, #ffe6f0); /* same as index.html */
+  background: linear-gradient(#aee7ff, #ffe6f0);
   overflow: hidden;
   font-family: "Helvetica", sans-serif;
   height: 100vh;
@@ -53,7 +53,7 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* Moving couple emojis */
+/* Couple emojis */
 .emoji {
   font-size: 72px;
   position: absolute;
@@ -83,7 +83,7 @@ body {
   100% { right: 140px; }
 }
 
-/* Kiss animation in middle */
+/* Kiss */
 .kiss {
   position: absolute;
   top: 50%;
@@ -121,7 +121,15 @@ body {
   100% { opacity: 0; transform: translate(-50%, -60px); }
 }
 
-/* Cherry blossoms falling */
+/* Love note */
+.note {
+  margin-top: 150px;
+  font-size: 16px;
+  color: #e63946;
+  min-height: 80px;
+}
+
+/* Blossoms */
 .blossom {
   position: absolute;
   font-size: 22px;
@@ -133,18 +141,10 @@ body {
   to { transform: translateY(110vh); }
 }
 
-/* Love note */
-.note {
-  margin-top: 150px; /* space under the emoji animation */
-  font-size: 16px;
-  color: #e63946;
-}
-
 /* Confetti */
 .confetti {
   position: absolute;
   font-size: 26px;
-  opacity: 1;
 }
 </style>
 </head>
@@ -153,31 +153,30 @@ body {
 
 <div class="sun">☀️</div>
 
-<!-- Clouds -->
 <div class="cloud one">☁️☁️</div>
 <div class="cloud two">☁️☁️☁️</div>
 <div class="cloud three">☁️☁️</div>
 <div class="cloud four">☁️☁️☁️</div>
 
-<!-- Scene card -->
 <div class="scene">
-  <!-- Moving couple -->
   <div class="emoji left">🥰</div>
   <div class="emoji right">😍</div>
-  <!-- Kiss appears in middle -->
+
   <div class="kiss">💋</div>
   <div class="heart one">💖</div>
   <div class="heart two">💕</div>
   <div class="heart three">💖</div>
 
-  <div class="note">
-    Natalie, I love you forever and always 💞 — Love, Quan
-  </div>
+  <div class="note" id="note"></div>
 </div>
 
-<!-- Cherry blossoms and floating hearts -->
+<!-- Typing sound -->
+<audio id="typeSound" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4b5bfb48d8.mp3?filename=keyboard-typing-143684.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-// Cherry blossoms
+// Blossoms
 setInterval(() => {
   const b = document.createElement("div");
   b.className = "blossom";
@@ -187,7 +186,7 @@ setInterval(() => {
   setTimeout(() => b.remove(), 12000);
 }, 900);
 
-// Optional confetti explosion once on load
+// Confetti
 function confetti() {
   const emojis = ["💖","✨","🌸","💘","💞"];
   for (let i = 0; i < 80; i++) {
@@ -214,10 +213,35 @@ function confetti() {
   }
 }
 
-window.onload = confetti;
+// Typing text 💕
+const text =
+"Natalie 💖\n\nI love you forever and always 💞\n\n— Love,\nQuan";
+let i = 0;
+const note = document.getElementById("note");
+const sound = document.getElementById("typeSound");
+
+function typeNote() {
+  if (i < text.length) {
+    note.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+
+    if (text[i] !== " ") {
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    i++;
+    setTimeout(typeNote, 60);
+  }
+}
+
+// Start everything
+window.onload = () => {
+  confetti();
+  setTimeout(typeNote, 1400);
+};
 </script>
 
-<!-- Soft piano -->
+<!-- Background music -->
 <audio autoplay loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/09/audio_3c8a7bfb29.mp3?filename=soft-piano-ambient-114166.mp3" type="audio/mpeg">
 </audio>
