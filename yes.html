@@ -109,8 +109,9 @@ body {
 .heart {
   position: absolute;
   font-size: 22px;
-  opacity: 0;
   left: 50%;
+  opacity: 0;
+  animation: floatHeartLoop 3s linear infinite;
 }
 
 @keyframes floatHeartLoop {
@@ -219,23 +220,18 @@ const note = document.getElementById("note");
 const sound = document.getElementById("typeSound");
 const emojiGroup = document.getElementById("emojiGroup");
 
-// Start floating hearts from bottom of kiss once text typing begins
+// Start floating hearts once text starts typing
 function startHearts() {
   const hearts = document.querySelectorAll(".heart");
   hearts.forEach((heart, idx) => {
-    setTimeout(() => { // staggered initial start
-      setInterval(() => {
-        heart.style.left = "50%";
-        heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
-        heart.style.opacity = "1";
-        heart.style.animation = "floatHeartLoop 3s forwards";
-      }, 800); // repeat every 0.8s for continuous flow
-    }, idx * 300); // initial stagger delay
+    heart.style.opacity = "1";
+    heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
+    heart.style.animationDelay = `${idx * 0.3}s`; // stagger start
   });
 }
 
 function typeNote() {
-  if (i === 0) startHearts(); // hearts start when text starts
+  if (i === 0) startHearts(); // hearts start with text
 
   if (i < text.length) {
     note.innerHTML += text[i] === "\n" ? "<br>" : text[i];
