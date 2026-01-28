@@ -110,7 +110,7 @@ body {
   position: absolute;
   font-size: 22px;
   left: 50%;
-  opacity: 0;
+  opacity: 0; /* start hidden */
   animation: floatHeartLoop 3s linear infinite;
 }
 
@@ -220,18 +220,27 @@ const note = document.getElementById("note");
 const sound = document.getElementById("typeSound");
 const emojiGroup = document.getElementById("emojiGroup");
 
-// Start floating hearts once text starts typing
+// Start floating hearts from bottom of kiss once text typing begins
 function startHearts() {
   const hearts = document.querySelectorAll(".heart");
   hearts.forEach((heart, idx) => {
-    heart.style.opacity = "1";
-    heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
-    heart.style.animationDelay = `${idx * 0.3}s`; // stagger start
+    setTimeout(() => { // stagger initial start
+      heart.style.opacity = "1";
+      heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
+
+      // Apply infinite floating loop
+      setInterval(() => {
+        heart.style.animation = "floatHeartLoop 3s linear forwards";
+        // reset animation by removing and forcing reflow
+        heart.offsetWidth; 
+        heart.style.animation = "floatHeartLoop 3s linear forwards";
+      }, 900); // repeat every 0.9s for continuous flow
+    }, idx * 300); // stagger start delay
   });
 }
 
 function typeNote() {
-  if (i === 0) startHearts(); // hearts start with text
+  if (i === 0) startHearts(); // hearts start when typing starts
 
   if (i < text.length) {
     note.innerHTML += text[i] === "\n" ? "<br>" : text[i];
@@ -244,7 +253,7 @@ function typeNote() {
     i++;
     setTimeout(typeNote, 60);
   } else {
-    heartBurst(); // final heart burst
+    heartBurst(); // final heart burst at the end
   }
 }
 
