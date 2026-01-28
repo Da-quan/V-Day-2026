@@ -114,9 +114,9 @@ body {
 }
 
 @keyframes floatHeartLoop {
-  0% { transform: translate(-50%, 50px); opacity: 1; }  /* Start just below the kiss */
-  80% { transform: translate(-50%, -40px); opacity: 1; }
-  100% { transform: translate(-50%, -55px); opacity: 0; } /* disappear at top */
+  0%   { transform: translate(-50%, 50px); opacity: 1; }
+  80%  { transform: translate(-50%, -40px); opacity: 1; }
+  100% { transform: translate(-50%, -55px); opacity: 0; }
 }
 
 /* Note */
@@ -219,20 +219,24 @@ const note = document.getElementById("note");
 const sound = document.getElementById("typeSound");
 const emojiGroup = document.getElementById("emojiGroup");
 
-// Start floating hearts from the bottom of kiss
+// Start floating hearts from bottom of kiss once text typing begins
 function startHearts() {
   const hearts = document.querySelectorAll(".heart");
   hearts.forEach((heart, idx) => {
-    setInterval(() => {
-      heart.style.left = "50%";
-      heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
-      heart.style.opacity = "1";
-      heart.style.animation = "floatHeartLoop 3s forwards";
-    }, idx * 600 + 500); // staggered start
+    setTimeout(() => { // staggered initial start
+      setInterval(() => {
+        heart.style.left = "50%";
+        heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
+        heart.style.opacity = "1";
+        heart.style.animation = "floatHeartLoop 3s forwards";
+      }, 800); // repeat every 0.8s for continuous flow
+    }, idx * 300); // initial stagger delay
   });
 }
 
 function typeNote() {
+  if (i === 0) startHearts(); // hearts start when text starts
+
   if (i < text.length) {
     note.innerHTML += text[i] === "\n" ? "<br>" : text[i];
     if (text[i] !== " ") {
@@ -244,15 +248,13 @@ function typeNote() {
     i++;
     setTimeout(typeNote, 60);
   } else {
-    // Start hearts immediately after kiss appears
-    startHearts();
-    heartBurst();
+    heartBurst(); // final heart burst
   }
 }
 
 window.onload = () => {
   confetti(60);
-  setTimeout(typeNote, 1400);
+  setTimeout(typeNote, 1400); // start typing after 1.4s
 };
 </script>
 
