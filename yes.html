@@ -56,7 +56,7 @@ body {
 /* Emoji group */
 .emoji-group {
   position: relative;
-  height: 140px;           /* container height to keep emojis inside card */
+  height: 140px;
   margin-bottom: 10px;
   transition: transform 0.4s ease;
 }
@@ -65,7 +65,7 @@ body {
 .emoji {
   font-size: 72px;
   position: absolute;
-  top: 30px;                /* start position inside card */
+  top: 30px;
 }
 
 .left {
@@ -91,7 +91,7 @@ body {
 /* Kiss */
 .kiss {
   position: absolute;
-  top: 30px;               /* inside card */
+  top: 30px;
   left: 50%;
   transform: translateX(-50%) scale(0.5);
   font-size: 64px;
@@ -105,25 +105,36 @@ body {
   100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
 }
 
-/* Floating hearts */
+/* 💖 LOOPING KISS HEARTS */
 .heart {
   position: absolute;
-  top: 50%;
+  top: 55px;
   left: 50%;
   font-size: 22px;
-  opacity: 0;
-  animation: floatHeart 4s forwards;
+  animation: floatHeart 7s infinite;
 }
 
-.heart.one { margin-left: -25px; animation-delay: 0s; }
-.heart.two { margin-left: 25px; animation-delay: 0.3s; }
-.heart.three { animation-delay: 0.6s; }
+.heart.one   { margin-left: -25px; animation-delay: 3s; }
+.heart.two   { margin-left: 25px;  animation-delay: 3.6s; }
+.heart.three { animation-delay: 4.2s; }
 
 @keyframes floatHeart {
-  0%, 45% { opacity: 0; transform: translate(-50%, -25px); }
-  55% { opacity: 1; transform: translate(-50%, -25px); }
-  75% { opacity: 0; transform: translate(-50%, -60px); }
-  100% { opacity: 0; transform: translate(-50%, -60px); }
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -10px);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -65px);
+  }
 }
 
 /* Note */
@@ -183,7 +194,6 @@ body {
 </audio>
 
 <script>
-// Cherry blossoms
 setInterval(() => {
   const b = document.createElement("div");
   b.className = "blossom";
@@ -193,40 +203,30 @@ setInterval(() => {
   setTimeout(() => b.remove(), 12000);
 }, 900);
 
-// Confetti
 function confetti(count = 80, emojis = ["💖","✨","🌸","💘","💞"]) {
   for (let i = 0; i < count; i++) {
     const c = document.createElement("div");
     c.className = "confetti";
     c.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-
     const duration = Math.random() * 2 + 2.5;
     const rotate = Math.random() * 720;
-
     c.style.left = Math.random() * 100 + "vw";
     c.style.top = "1%";
-
     c.animate([
       { transform: "translateY(0) rotate(0deg)", opacity: 1 },
       { transform: `translateY(100vh) rotate(${rotate}deg)`, opacity: 0 }
-    ], {
-      duration: duration * 1000,
-      easing: "ease-out"
-    });
-
+    ], { duration: duration * 1000, easing: "ease-out" });
     document.body.appendChild(c);
     setTimeout(() => c.remove(), duration * 1000);
   }
 }
 
-// Final heart burst
 function heartBurst() {
   confetti(120, ["💖","💗","💕","💞","💘"]);
 }
 
-// Typing text
 const text =
-"Natalie 💖\n\nI love you forever and always 💞\n\n— Love,\nQuan";
+"💖 Natalie 💖\n💘 Happy Valentine's Day! 💘\n💞 I love you forever and always 💞\n\n— Love,\n💗 Quan 💗";
 
 let i = 0;
 const note = document.getElementById("note");
@@ -236,32 +236,25 @@ const emojiGroup = document.getElementById("emojiGroup");
 function typeNote() {
   if (i < text.length) {
     note.innerHTML += text[i] === "\n" ? "<br>" : text[i];
-
     if (text[i] !== " ") {
       sound.currentTime = 0;
       sound.play();
     }
-
-    // Lift emojis as text grows
     const shift = Math.min(i * 0.18, 34);
     emojiGroup.style.transform = `translateY(-${shift}px)`;
-
     i++;
     setTimeout(typeNote, 60);
   } else {
-    // Final heart burst
     heartBurst();
   }
 }
 
-// Start typing after page load
 window.onload = () => {
   confetti(60);
   setTimeout(typeNote, 1400);
 };
 </script>
 
-<!-- Background music -->
 <audio autoplay loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/09/audio_3c8a7bfb29.mp3?filename=soft-piano-ambient-114166.mp3" type="audio/mpeg">
 </audio>
