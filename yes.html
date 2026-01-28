@@ -105,16 +105,8 @@ body {
   100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
 }
 
-/* Floating hearts (looping) */
-.heart {
-  position: absolute;
-  font-size: 22px;
-  left: 50%;
-  opacity: 0; /* start hidden */
-  animation: floatHeartLoop 3s linear infinite;
-}
-
-@keyframes floatHeartLoop {
+/* Floating hearts (JS-created) */
+@keyframes floatHeart {
   0%   { transform: translate(-50%, 50px); opacity: 1; }
   80%  { transform: translate(-50%, -40px); opacity: 1; }
   100% { transform: translate(-50%, -55px); opacity: 0; }
@@ -163,9 +155,7 @@ body {
     <div class="emoji right">😍</div>
 
     <div class="kiss">💋</div>
-    <div class="heart one">💖</div>
-    <div class="heart two">💕</div>
-    <div class="heart three">💖</div>
+    <!-- Hearts will be created dynamically via JS -->
   </div>
 
   <div class="note" id="note"></div>
@@ -187,7 +177,7 @@ setInterval(() => {
   setTimeout(() => b.remove(), 12000);
 }, 900);
 
-// Confetti
+// Confetti function
 function confetti(count = 80, emojis = ["💖","✨","🌸","💘","💞"]) {
   for (let i = 0; i < count; i++) {
     const c = document.createElement("div");
@@ -220,27 +210,29 @@ const note = document.getElementById("note");
 const sound = document.getElementById("typeSound");
 const emojiGroup = document.getElementById("emojiGroup");
 
-// Start floating hearts from bottom of kiss once text typing begins
-function startHearts() {
-  const hearts = document.querySelectorAll(".heart");
-  hearts.forEach((heart, idx) => {
-    setTimeout(() => { // stagger initial start
-      heart.style.opacity = "1";
-      heart.style.marginLeft = idx === 0 ? "-25px" : idx === 1 ? "25px" : "0";
+// Function to spawn floating hearts continuously
+function spawnHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.position = "absolute";
+    heart.style.left = `50%`;
+    // random horizontal offset for variety
+    const offset = Math.random() * 50 - 25; 
+    heart.style.marginLeft = offset + "px";
+    heart.style.fontSize = (18 + Math.random() * 8) + "px"; // random size
+    heart.innerText = ["💖","💕","💘","💞","💗"][Math.floor(Math.random()*5)];
+    emojiGroup.appendChild(heart);
 
-      // Apply infinite floating loop
-      setInterval(() => {
-        heart.style.animation = "floatHeartLoop 3s linear forwards";
-        // reset animation by removing and forcing reflow
-        heart.offsetWidth; 
-        heart.style.animation = "floatHeartLoop 3s linear forwards";
-      }, 900); // repeat every 0.9s for continuous flow
-    }, idx * 300); // stagger start delay
-  });
+    heart.style.animation = "floatHeart 3s forwards";
+    
+    setTimeout(() => heart.remove(), 3000); // remove after animation ends
+  }, 500); // spawn a new heart every 0.5s
 }
 
+// Typing function
 function typeNote() {
-  if (i === 0) startHearts(); // hearts start when typing starts
+  if (i === 0) spawnHearts(); // start hearts when typing starts
 
   if (i < text.length) {
     note.innerHTML += text[i] === "\n" ? "<br>" : text[i];
@@ -253,7 +245,7 @@ function typeNote() {
     i++;
     setTimeout(typeNote, 60);
   } else {
-    heartBurst(); // final heart burst at the end
+    heartBurst(); // final heart burst
   }
 }
 
